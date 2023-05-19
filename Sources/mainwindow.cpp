@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:\\Users\\sirotir\\Desktop\\ToDo\\kursovaya.sqlite");
+    db.setDatabaseName("C:\\Programming\\ToDoList\\kursovaya.sqlite");
     if (!db.open()) {
           qDebug() << db.lastError().text();
           return;
