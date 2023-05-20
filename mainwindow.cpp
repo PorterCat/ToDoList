@@ -1,13 +1,32 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "QDate"
+#include "QTime"
+#include "QDebug"
+#include "QString"
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QDate system_date;
+    system_date = QDate::currentDate();
+        qDebug() << "system_date" << system_date; //получить текущую дату
+        qDebug() << "year" << system_date.year();
+        qDebug() << "month" << system_date.month();
+        qDebug() << "day" << system_date.day();
+
+        QString str1 = system_date.toString("yyyy-MM-dd");
+        qDebug()<<str1;
+
+    QString databasePath = QDir::currentPath() + "/../kursovaya.sqlite";
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("C:\\Programming\\ToDoList\\kursovaya.sqlite");
+    db.setDatabaseName(databasePath);
+    qDebug()<<databasePath;
+
     if (!db.open()) {
           qDebug() << db.lastError().text();
           return;
@@ -15,19 +34,27 @@ MainWindow::MainWindow(QWidget *parent)
     else{
         qDebug()<<"db found";
     }
+
     model = new QSqlTableModel(this, db);
     model->setTable("task");
     model->select();
     QSqlQuery query = QSqlQuery(db);
+
     if (!query.exec("select * from task")){
         qDebug()<<query.lastError().databaseText();
         qDebug()<<query.lastError().driverText();
         return;
     }
+
     while(query.next()){
       qDebug()<<query.record();
     }
+    query.prepare("Update task SET Status = 1 WHERE Date < :str");
+    query.bindValue(":str", str1);
+    query.exec();
+
     ui->tableAll->setModel(model);
+    ui->tableAll->hideColumn(0);
 }
 
 MainWindow::~MainWindow()
@@ -53,12 +80,6 @@ void MainWindow::on_pushButton_2_clicked()
     }
 }
 
-void MainWindow::on_pushButton_4_clicked()
-{
-
-}
-
-
 void MainWindow::on_tabWidget_tabBarClicked(int index)
 {
     QSqlQueryModel *setquery1 = new QSqlQueryModel;
@@ -66,15 +87,18 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
     QTableView *tv = new QTableView(this);
     tv->setModel(setquery1);
     ui->tableActive->setModel(setquery1);
+
     QSqlQueryModel *setquery2 = new QSqlQueryModel;
     setquery2->setQuery("SELECT * FROM task WHERE status=1");
-    QTableView *tv1 = new QTableView(this);
-    tv1->setModel(setquery2);
+    QTableView *tv2 = new QTableView(this);
+    tv2->setModel(setquery2);
     ui->tableFailed->setModel(setquery2);
+
     QSqlQueryModel *setquery3 = new QSqlQueryModel;
     setquery3->setQuery("SELECT * FROM task WHERE status=2");
-    QTableView *tv2 = new QTableView(this);
-    tv2->setModel(setquery3);
+    QTableView *tv3 = new QTableView(this);
+    tv3->setModel(setquery3);
     ui->tableComplited->setModel(setquery3);
+
 }
 
