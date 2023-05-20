@@ -1,15 +1,25 @@
-### Course work
-## ToDoList App
+### Курсовая работа по дисциплине "Технологии разработки програмного обеспечения"
+## Приложение ToDoList 
 
-Required Software build:
-`Cmake `
+Требуемые Build-системы:
+`Cmake`,
+`Make` 
 
-Commands for build the app (Windows only):
+Команда, чтобы собрать приложение:
+
 ```
-cmake -S . -B Build/ -G "Unix Makefiles" 
-cd Build
-make 
-/ToDoList.exe
-```
+git clone https://github.com/PorterCat/ToDoList.git && cd ToDoList && cmake -S . -B Build/ -G "Unix Makefiles" && cd Build && make && ToDoList.exe
+```                 
 
-This page was built by [Me](https://vk.com/portercat).
+
+
+
+
+Разработчики: 
+____
+>[Игорь](https://vk.com/vulpera.lover)     
+> 
+>[Михаил](https://vk.com/mikhailgirich_1)    
+> 
+>[Андрей](https://vk.com/portercat)    
+>
