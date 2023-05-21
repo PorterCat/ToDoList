@@ -31,5 +31,6 @@ private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     QSqlTableModel* model;
+    QSqlTableModel* model1;
 };
 #endif // MAINWINDOW_H

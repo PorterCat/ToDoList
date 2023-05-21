@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
         QString str1 = system_date.toString("yyyy-MM-dd");
         qDebug()<<str1;
 
-    QString databasePath = QDir::currentPath() + "/../kursovaya.sqlite";
+    QString databasePath = QDir::currentPath() + "/kursovaya.sqlite";
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(databasePath);
     qDebug()<<databasePath;
@@ -35,9 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
         qDebug()<<"db found";
     }
 
-    model = new QSqlTableModel(this, db);
-    model->setTable("task");
-    model->select();
     QSqlQuery query = QSqlQuery(db);
 
     if (!query.exec("select * from task")){
@@ -49,10 +46,13 @@ MainWindow::MainWindow(QWidget *parent)
     while(query.next()){
       qDebug()<<query.record();
     }
-    query.prepare("Update task SET Status = 1 WHERE Date < :str");
+    query.prepare("Update task SET Status = 1 WHERE Date < :str AND Status = 0");
     query.bindValue(":str", str1);
     query.exec();
 
+    model = new QSqlTableModel(this, db);
+    model->setTable("task");
+    model->select();
     ui->tableAll->setModel(model);
     ui->tableAll->hideColumn(0);
 }
@@ -87,18 +87,26 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
     QTableView *tv = new QTableView(this);
     tv->setModel(setquery1);
     ui->tableActive->setModel(setquery1);
+    ui->tableActive->hideColumn(0);
 
     QSqlQueryModel *setquery2 = new QSqlQueryModel;
     setquery2->setQuery("SELECT * FROM task WHERE status=1");
     QTableView *tv2 = new QTableView(this);
     tv2->setModel(setquery2);
     ui->tableFailed->setModel(setquery2);
+    ui->tableFailed->hideColumn(0);
 
     QSqlQueryModel *setquery3 = new QSqlQueryModel;
     setquery3->setQuery("SELECT * FROM task WHERE status=2");
     QTableView *tv3 = new QTableView(this);
     tv3->setModel(setquery3);
     ui->tableComplited->setModel(setquery3);
+    ui->tableComplited->hideColumn(0);
 
+    model1 = new QSqlTableModel(this, db);
+    model1->setTable("task");
+    model1->select();
+    ui->tableAll->setModel(model1);
+    ui->tableAll->hideColumn(0);
 }
 
