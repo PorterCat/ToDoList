@@ -28,6 +28,7 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        ui_mainwindow.h
 )
 
 enable_language("RC")

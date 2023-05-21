@@ -46,7 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
     while(query.next()){
       qDebug()<<query.record();
     }
-    query.prepare("Update task SET Status = 1 WHERE Date < :str AND Status = 0");
+    query.prepare("Update task SET status_id = 1 WHERE Date < :str AND status_id = 0");
     query.bindValue(":str", str1);
     query.exec();
 
@@ -83,21 +83,21 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_tabWidget_tabBarClicked(int index)
 {
     QSqlQueryModel *setquery1 = new QSqlQueryModel;
-    setquery1->setQuery("SELECT * FROM task WHERE status=0");
+    setquery1->setQuery("SELECT * FROM task WHERE status_id=0");
     QTableView *tv = new QTableView(this);
     tv->setModel(setquery1);
     ui->tableActive->setModel(setquery1);
     ui->tableActive->hideColumn(0);
 
     QSqlQueryModel *setquery2 = new QSqlQueryModel;
-    setquery2->setQuery("SELECT * FROM task WHERE status=1");
+    setquery2->setQuery("SELECT * FROM task WHERE status_id=1");
     QTableView *tv2 = new QTableView(this);
     tv2->setModel(setquery2);
     ui->tableFailed->setModel(setquery2);
     ui->tableFailed->hideColumn(0);
 
     QSqlQueryModel *setquery3 = new QSqlQueryModel;
-    setquery3->setQuery("SELECT * FROM task WHERE status=2");
+    setquery3->setQuery("SELECT * FROM task WHERE status_id=2");
     QTableView *tv3 = new QTableView(this);
     tv3->setModel(setquery3);
     ui->tableComplited->setModel(setquery3);
