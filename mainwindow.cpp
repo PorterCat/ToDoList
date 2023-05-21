@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
         QString str1 = system_date.toString("yyyy-MM-dd");
         qDebug()<<str1;
 
-    QString databasePath = QDir::currentPath() + "/kursovaya.sqlite";
+    QString databasePath = QDir::currentPath() + "../kursovaya.sqlite";
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(databasePath);
     qDebug()<<databasePath;
