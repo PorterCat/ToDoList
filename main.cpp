@@ -1,16 +1,16 @@
 #include "mainwindow.h"
-#include "test.h"
-#include <QObject>
-#include <QtTest>
+
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QTest>
+#include <QObject>
 
 int main(int argc, char *argv[])
 {
     freopen("testing.log", "w", stdout);
     QApplication a(argc, argv);
-    QTest::qExec(new test_Smart, argc, argv);
+    QTest::qExec(new Test_Smart, argc, argv);
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -25,4 +25,3 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 }
-
