@@ -22,12 +22,15 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Sql)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Test)
 
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        test.cpp
+        test.h
         ui_mainwindow.h
 )
 
@@ -44,6 +47,7 @@ endif()
 
 
 target_link_libraries(ToDoList PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(ToDoList PRIVATE Qt6::Test)
 
 install(TARGETS ToDoList
     BUNDLE DESTINATION .
