@@ -14,5 +14,5 @@ private slots:
     void Day_validator();
     void Add_func();
     void Dell_func();
-};
+}
 

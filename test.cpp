@@ -79,3 +79,4 @@ void test_Smart::Dell_func()
     MainWindow a;
     QCOMPARE(a.model->removeRow(true),0);
 };
+
