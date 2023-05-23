@@ -22,6 +22,7 @@ public:
     QSqlDatabase db;
     QSqlTableModel* model;
     Ui::MainWindow *ui;
+    QSqlTableModel* model2;
 
 private slots:
     void on_pushButton_clicked();
