@@ -19,6 +19,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QSqlDatabase db;
+    QSqlTableModel* model;
+    Ui::MainWindow *ui;
 
 private slots:
     void on_pushButton_clicked();
@@ -28,9 +31,7 @@ private slots:
     void on_tabWidget_tabBarClicked(int index);
 
 private:
-    Ui::MainWindow *ui;
-    QSqlDatabase db;
-    QSqlTableModel* model;
     QSqlTableModel* model1;
 };
+
 #endif // MAINWINDOW_H
