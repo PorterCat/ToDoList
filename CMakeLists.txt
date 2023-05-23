@@ -48,12 +48,13 @@ endif()
 
 target_link_libraries(ToDoList PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(ToDoList PRIVATE Qt6::Test)
-target_link_libraries(ToDoList PRIVATE Qt6::Sql)
-target_link_libraries(ToDoList PRIVATE Qt6::Core)
 
 install(TARGETS ToDoList
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+
+target_link_libraries(ToDoList PRIVATE Qt6::Sql)
+target_link_libraries(ToDoList PRIVATE Qt6::Core)
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(ToDoList)
