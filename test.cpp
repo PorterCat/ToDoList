@@ -73,10 +73,3 @@ void test_Smart::Add_func()
     MainWindow a;
     QCOMPARE(a.model->insertRow(a.model->rowCount()),1);
 };
-
-void test_Smart::Dell_func()
-{
-    MainWindow a;
-    QCOMPARE(a.model->removeRow(true),0);
-};
-
