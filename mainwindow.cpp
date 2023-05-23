@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "test.h"
 #include "QDate"
 #include "QTime"
 #include "QDebug"
@@ -24,16 +25,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     QString databasePath = QDir::currentPath() + "/../kursovaya.sqlite";
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(databasePath);
-    qDebug()<<databasePath;
 
-    if (!db.open()) {
-          qDebug() << db.lastError().text();
-          return;
-    }
-    else{
-        qDebug()<<"db found";
-    }
+
+    db.setDatabaseName(databasePath);
+
+
+//    qDebug()<<databasePath;
 
     QSqlQuery query = QSqlQuery(db);
 
@@ -51,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     query.exec();
 
     model = new QSqlTableModel(this, db);
+
     model->setTable("task");
     model->select();
     ui->tableAll->setModel(model);
@@ -67,7 +65,6 @@ void MainWindow::on_pushButton_clicked()
 {
     qDebug() << "inserting row" << model->insertRow(model->rowCount());
 }
-
 
 void MainWindow::on_pushButton_2_clicked()
 {
