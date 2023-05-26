@@ -4,13 +4,13 @@ on: push
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v2
 
     - name: sfml package
-      run: sudo apt install qt6-base-dev
+      run: sudo apt-get install qt5-default && sudo snap install cmake
 
     - name: Build
       run: make
