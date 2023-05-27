@@ -25,13 +25,13 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Test)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        test.cpp
-        test.h
-        ui_mainwindow.h
+        src/main.cpp
+        src/mainwindow.cpp
+        src/mainwindow.h
+        src/mainwindow.ui
+        src/test.cpp
+        src/test.h
+        src/ui_mainwindow.h
 )
 
 enable_language("RC")
