@@ -13,37 +13,24 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     QDate system_date;
     system_date = QDate::currentDate();
-        //qDebug() << "system_date" << system_date; //получить текущую дату
-        //qDebug() << "year" << system_date.year();
-        //qDebug() << "month" << system_date.month();
-        //qDebug() << "day" << system_date.day();
         QString str1 = system_date.toString("yyyy-MM-dd");
-        //qDebug()<<str1;
 
     QString databasePath = QDir::currentPath() + "/../kursovaya.sqlite";
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(databasePath);
-    //qDebug()<<databasePath;
 
     if (!db.open()) {
-          //qDebug() << db.lastError().text();
+
           return;
     }
     else{
-        //qDebug()<<"db found";
     }
 
     QSqlQuery query = QSqlQuery(db);
 
     query.exec("select * from task");
-    /*if (!query.exec("select * from task")){
-        qDebug()<<query.lastError().databaseText();
-        qDebug()<<query.lastError().driverText();
-        return;
-    }*/
 
     while(query.next()){
-      //qDebug()<<query.record();
     }
     query.prepare("Update task SET status = 1 WHERE Date < :str AND status = 0");
     query.bindValue(":str", str1);
@@ -65,7 +52,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_clicked()
 {
     model->insertRow(model->rowCount());
-    //qDebug() << "inserting row";
 }
 
 
@@ -73,11 +59,9 @@ void MainWindow::on_pushButton_2_clicked()
 {
     int selectedrow = ui->tableAll->currentIndex().row();
     if(selectedrow >= 0){
-        //qDebug()<<"deleting row";
         model->removeRow(selectedrow);
     }
     else{
-        //qDebug()<<"no row selected";
     }
 }
 
