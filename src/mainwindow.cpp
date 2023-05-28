@@ -1,9 +1,9 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "QDate"
-#include "QTime"
-#include "QDebug"
-#include "QString"
+#include <mainwindow.h>
+#include <ui_mainwindow.h>
+#include <QDate>
+#include <QTime>
+#include <QDebug>
+#include <QString>
 #include <QDir>
 
 MainWindow::MainWindow(QWidget *parent)

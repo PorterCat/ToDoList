@@ -13,5 +13,10 @@ private slots:
     void Month_validator();
     void Day_validator();
     void Add_func();
+    void task_null();
+    void allquery();
+    void activequery();
+    void failedquery();
+    void donequery();
 };
 

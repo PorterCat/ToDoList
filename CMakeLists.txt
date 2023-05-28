@@ -17,7 +17,6 @@ endif()
 set(CMAKE_PREFIX_PATH "C:/Qt/6.5.0/mingw_64/lib/cmake")
 set(WINDEPLOYQT_EXECUTABLE "C:/Qt/6.5.0/mingw_64/bin/windeployqt.exe")
 
-
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Sql)
@@ -25,17 +24,18 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Test)
 
 set(PROJECT_SOURCES
-        src/main.cpp
-        src/mainwindow.cpp
-        src/mainwindow.h
-        src/mainwindow.ui
-        src/test.cpp
-        src/test.h
-        src/ui_mainwindow.h
+    src/main.cpp
+    src/mainwindow.cpp
+    src/includes/mainwindow.h
+    src/mainwindow.ui
+    src/test/test.cpp
+    src/includes/test.h
+    src/includes/ui_mainwindow.h
 )
 
 enable_language("RC")
-set(WIN32_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/ToDoList.rc)
+set(WIN32_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/res/ToDoList.rc)
+
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ToDoList
@@ -45,9 +45,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     )
 endif()
 
-
 target_link_libraries(ToDoList PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(ToDoList PRIVATE Qt6::Test)
+
+target_include_directories(ToDoList PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/includes
+)
 
 install(TARGETS ToDoList
     BUNDLE DESTINATION .

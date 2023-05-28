@@ -1,5 +1,5 @@
-#include "test.h"
-#include "mainwindow.h"
+#include <test.h>
+#include <mainwindow.h>
 #include <QtTest>
 
 test_Smart::test_Smart(QObject *parent) :
@@ -73,3 +73,42 @@ void test_Smart::Add_func()
     MainWindow a;
     QCOMPARE(a.model->insertRow(a.model->rowCount()),1);
 };
+
+void test_Smart::task_null()
+{
+    MainWindow a;
+    QSqlQuery query = QSqlQuery(a.db);
+    query.exec("select * from task");
+    while (query.next()) {
+        QString taskk = query.value(1).toString();
+        QCOMPARE_NE(taskk,"");
+    }
+}
+
+void test_Smart::allquery()
+{
+    MainWindow a;
+    QSqlQuery query = QSqlQuery(a.db);
+    QCOMPARE(query.exec("select * from task"),1);
+}
+
+void test_Smart::activequery()
+{
+    MainWindow a;
+    QSqlQuery query = QSqlQuery(a.db);
+    QCOMPARE(query.exec("SELECT * FROM task WHERE status=0"),1);
+}
+
+void test_Smart::failedquery()
+{
+    MainWindow a;
+    QSqlQuery query = QSqlQuery(a.db);
+    QCOMPARE(query.exec("SELECT * FROM task WHERE status=1"),1);
+}
+
+void test_Smart::donequery()
+{
+    MainWindow a;
+    QSqlQuery query = QSqlQuery(a.db);
+    QCOMPARE(query.exec("SELECT * FROM task WHERE status=2"),1);
+}
